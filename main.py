@@ -150,7 +150,7 @@ def main():
 
         print('\n' + win_titles[winner])
 
-        print('\n\nSCORES:\n\t(YOU) ' + str(SCORES[0]) + ':' + str(SCORES[1]) + ' (COMPUTER)')
+        print('\n\nScore:\n\t(YOU) ' + str(SCORES[0]) + ':' + str(SCORES[1]) + ' (COMPUTER)')
 
 
 if __name__ == '__main__':
