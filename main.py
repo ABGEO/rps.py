@@ -1,8 +1,12 @@
+#!/usr/bin/python
+"""
+Module main.py
+"""
 from os import system, name
 from time import sleep
 import random
 
-objects = {
+OBJECTS = {
     'r': {
         'title': 'Rock',
         'icon': """
@@ -41,10 +45,13 @@ objects = {
     }
 }
 
-score = [0, 0]
+SCORES = [0, 0]
 
 
 def clear():
+    """
+    Clear screen.
+    """
     if name == 'nt':
         system('cls')
     else:
@@ -52,6 +59,9 @@ def clear():
 
 
 def print_logo():
+    """
+    Print application logo.
+    """
     print("""
 Welcome to
  _ __ _ __  ___   _ __  _   _ 
@@ -64,13 +74,19 @@ Welcome to
 
 
 def print_animation():
-    for k, v in objects.items():
-        print(v['icon'])
+    """
+    Print game animation.
+    """
+    for _, item in OBJECTS.items():
+        print(item['icon'])
         sleep(0.5)
         clear()
 
 
 def get_user_input():
+    """
+    Get user's selected game object.
+    """
     first = True
     while True:
         clear()
@@ -82,25 +98,31 @@ def get_user_input():
 
         selected = input('Select Rock(r), Paper(p) or Scissors(s): ')
 
-        if selected == 'r' or selected == 'p' or selected == 's':
+        if selected in ['r', 'p', 's']:
             return selected
 
 
 def get_winner(player1, player2):
-    w1 = player1['weight']
-    w2 = player2['weight']
+    """
+    Return winner from given players.
+    """
+    w_1 = player1['weight']
+    w_2 = player2['weight']
 
-    if w1 == w2:
+    if w_1 == w_2:
         return 0
-    elif (w1 - w2) % 3 == 1:
-        score[0] += 1
+    elif (w_1 - w_2) % 3 == 1:
+        SCORES[0] += 1
         return 1
     else:
-        score[1] += 1
+        SCORES[1] += 1
         return 2
 
 
 def main():
+    """
+    Application main function.
+    """
     clear()
     print_animation()
     clear()
@@ -111,12 +133,12 @@ def main():
     while True:
         start_action = input('\nPress any key to start or q for exit...')
 
-        if start_action == 'q' or start_action == 'Q':
+        if start_action in ['q', 'Q', 'exit', 'quit']:
             exit()
 
         user_input = get_user_input()
-        user_object = objects.get(user_input)
-        comp_object = objects.get(random.choice(['r', 'p', 's']))
+        user_object = OBJECTS.get(user_input)
+        comp_object = OBJECTS.get(random.choice(['r', 'p', 's']))
 
         print(
             user_object['title'] + ' (YOU) ' + user_object['icon'] +
@@ -128,7 +150,7 @@ def main():
 
         print('\n' + win_titles[winner])
 
-        print('\n\nScore:\n\t(YOU) ' + str(score[0]) + ':' + str(score[1]) + ' (COMPUTER)')
+        print('\n\nSCORES:\n\t(YOU) ' + str(SCORES[0]) + ':' + str(SCORES[1]) + ' (COMPUTER)')
 
 
 if __name__ == '__main__':
